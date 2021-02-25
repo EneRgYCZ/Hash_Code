@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 ifstream fin("Datasets/a.txt");
@@ -36,7 +37,7 @@ int main()
     for (int i = 0; i < StreetCount; i++)
     {
         fin >> R1[i].StartPos >> R1[i].EndPos;
-        fin.getline(R1[i].Name, 31);
+        fin >> R1[i].Name;
         fin >> R1[i].CrossDuration;
     }
     //================================
@@ -47,10 +48,10 @@ int main()
         fin >> C1[i].TravelDistance;
         for (int x = 0; x < C1[i].TravelDistance; x++)
         {
-            fin.getline(C1[i].StreetNames[x], 31);
+            fin >> C1[i].StreetNames[x];
         }
     }
     //================================
 
-    cout << R1[0].StartPos << endl;
+    
 }
