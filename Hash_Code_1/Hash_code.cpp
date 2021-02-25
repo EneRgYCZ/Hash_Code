@@ -12,14 +12,9 @@ int main ()
     char *q;
     q = strtok(s, " ");
     fin >> n;
-    while (n)
-    {
-        cin.getline(s, 256);
-        while (q)
-        {   
-            cout << q << endl;
-            q = strtok(NULL, " ");
-        }
-        n--;
+    while (q)
+    {   
+        cout << q << endl;
+        q = strtok(NULL, " ");
     }
 }
