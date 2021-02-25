@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace std;
 
-ifstream fin ("Datasets/a.txt");
+ifstream fin("Datasets/a.txt");
 
 //GLOBAL VARIABLES====================
 int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
@@ -11,25 +11,26 @@ int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
 //STRUCTS=============================
 class Roads
 {
-    public:
-        int StartPos, EndPos, CrossDuration;
-        char Name[31];
-        bool OneWay;
+public:
+    int StartPos, EndPos, CrossDuration;
+    char Name[31];
+    bool OneWay;
 };
 
 class Car
 {
-    public :
-        int TravelDistance, TravelDuration;
-        char StreetNames[10000][31];
+public:
+    int TravelDistance, TravelDuration;
+    char StreetNames[10000][31];
 };
-//====================================
 
-Car C1[CarCount];
-Roads R1[StreetCount];
-
-void read_HoleFile()
+int main()
 {
+    fin >> Duration >> IntersectionsCount >> StreetCount >> CarCount >> BonusPointsPerCar;
+
+    Car C1[CarCount];
+    Roads R1[StreetCount];
+
     //GET STREET VALUES===============
     for (int i = 0; i < StreetCount; i++)
     {
@@ -49,9 +50,4 @@ void read_HoleFile()
         }
     }
     //================================
-}
-
-int main ()
-{
-    fin >> Duration >> IntersectionsCount >> StreetCount >> CarCount >> BonusPointsPerCar;
 }
