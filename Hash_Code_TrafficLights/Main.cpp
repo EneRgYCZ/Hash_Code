@@ -4,7 +4,7 @@
 using namespace std;
 
 ifstream fin("Datasets/a.txt");
-ofstream fout ("Outputs/a.out")k
+ofstream fout ("Outputs/a.out");
 
 //GLOBAL VARIABLES====================
 int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
@@ -61,7 +61,7 @@ int main()
         {
             if (strcmp(C1[i].StreetNames[j], R1[j].Name))
             {
-                C1[i].TravelDuration = C1[i].TravelDuration + C1[i].TravelDistance
+                C1[i].TravelDuration = C1[i].TravelDuration + C1[i].TravelDistance;
             }
         }
     }
@@ -85,6 +85,6 @@ int main()
         }
     }
 
-    
+
 
 }
