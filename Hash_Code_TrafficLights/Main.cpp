@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
-ifstream fin("Datasets/a.txt");
-ofstream fout ("Outputs/a.out");
+ifstream fin("Datasets/d.txt");
+ofstream fout ("Outputs/d.out");
 
 //GLOBAL VARIABLES====================
 int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
@@ -85,6 +85,13 @@ int main()
         }
     }
 
-
+    for (int i = 0; i < IntersectionsCount; i++)
+    {
+        int c = OneWayPOS[i];
+        fout << IntersectionsCount << endl;
+        fout << c << endl;
+        fout << 1 << endl;
+        fout << R1[c].Name << 1 << endl;
+    }
 
 }
