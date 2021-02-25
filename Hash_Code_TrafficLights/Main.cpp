@@ -4,7 +4,7 @@
 using namespace std;
 
 ifstream fin("Datasets/d.txt");
-ofstream fout ("Outputs/d.out");
+ofstream fout("Outputs/d.out");
 
 //GLOBAL VARIABLES====================
 int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
