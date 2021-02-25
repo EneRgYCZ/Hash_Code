@@ -4,6 +4,7 @@
 using namespace std;
 
 ifstream fin("Datasets/a.txt");
+ofstream fout ("Outputs/a.out")k
 
 //GLOBAL VARIABLES====================
 int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
@@ -53,5 +54,37 @@ int main()
     }
     //================================
 
+    //TRAVEL DISTANCE
+    for (int i = 0; i < CarCount; i++)
+    {
+        for (int j = 0; j < StreetCount; j++)
+        {
+            if (strcmp(C1[i].StreetNames[j], R1[j].Name))
+            {
+                C1[i].TravelDuration = C1[i].TravelDuration + C1[i].TravelDistance
+            }
+        }
+    }
+
+    //ONEWAY BOOL
+    int OneWayPOS[StreetCount], index = 0;
+    for (int ye = 0; ye < StreetCount; ye++)
+    {
+        for (int me = 0; me < StreetCount; me++)
+        {
+            if (R1[ye].EndPos == R1[me].EndPos)
+            {
+                R1[ye].OneWay = false;
+            }
+            else
+            {
+                R1[ye].OneWay = true;
+                OneWayPOS[index] = ye;
+                index++;
+            }
+        }
+    }
+
     
+
 }
