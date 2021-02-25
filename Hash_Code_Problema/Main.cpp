@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 /*
@@ -8,27 +9,13 @@ STREET: StartPos - EndPos - Name - CrossDuration
 CAR: StartPos - Path
 */
 
-struct Roads{
-    int startPos, EndPos, CrossDuration;
-    string Name;
-    
-};
-
-struct Car{
-    Roads r;
-    int startPos;
-    int *path;
-
-};
-
-
-
-
-
 
 
 int main ()
 {
+    for(int i=0;i<20000;i++)
+    {
+        cout<<i;
+    }
 
-    return 0;
 }

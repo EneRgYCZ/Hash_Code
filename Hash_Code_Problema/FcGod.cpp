@@ -1,11 +1,25 @@
 #include <iostream>
-#include "FcGod.h"
 using namespace std;
 
-int aragaz(int x)
+/*
+Input type:
+START: Duration - IntersectionsCount - StreetCount - CarCount - BonusPointsPerCar
+STREET: StartPos - EndPos - Name - CrossDuration
+CAR: TravelDistance - Path
+*/
+
+struct Roads
 {
-    return x;
-}
+    int startPos, EndPos, CrossDuration;
+    char Name[31];
+    bool OneWay;
+};
+
+struct Car
+{
+    Roads r;
+    int TravelDistance,TravelDuration;
+};
 
 int main()
 {
