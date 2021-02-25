@@ -21,6 +21,8 @@ struct Car
     int TravelDistance,TravelDuration;
 };
 
+
+
 int main()
 {
 
