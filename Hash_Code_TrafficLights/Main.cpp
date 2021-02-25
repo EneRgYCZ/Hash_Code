@@ -23,6 +23,7 @@ public:
     int TravelDistance, TravelDuration;
     char StreetNames[10000][31];
 };
+//====================================
 
 int main()
 {
@@ -50,4 +51,6 @@ int main()
         }
     }
     //================================
+
+    cout << R1[0].StartPos << endl;
 }
