@@ -1,17 +1,41 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 ifstream fin("Datasets/a.txt");
 
-int D, I, S, V, F;
+/*
+Input type:
+START: Duration - IntersectionsCount - StreetCount - CarCount - BonusPointsPerCar
+STREET: StartPos - EndPos - Name - CrossDuration
+CAR: TravelCount - Path
+*/
 
-void read()
+int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
+
+int StartPos, EndPos, CrossDuration;
+
+char Name[31];
+
+int TravelCount, Path[];
+
+void read_File() // Reads the document
 {
-    fin >> D >> I >> S >> V >> F;
+    fin >> Duration >> IntersectionsCount >> StreetCount >> CarCount >> BonusPointsPerCar;
+    for (int i = 0; i < StreetCount; i++)
+    {
+        fin >> StartPos >> EndPos;
+        fin.getline(Name, 31);
+        fin >> CrossDuration;
+    }
+    for (int j = 0; j < CarCount; j++)
+    {
+        
+    }
 }
 
 int main()
 {
-    read();
+    read_File();
 }
