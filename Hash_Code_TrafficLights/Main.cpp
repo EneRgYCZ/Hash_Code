@@ -62,7 +62,7 @@ class Schedule
 {
 public:
     int id;
-    vector<pair<string, int>> streetAndTime;
+    vector<pair<string, int> > streetAndTime;
 };
 
 int main(int argc, char *argv[])
