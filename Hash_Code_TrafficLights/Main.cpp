@@ -1,97 +1,161 @@
 #include <iostream>
-#include <fstream>
+#include <vector>
 #include <string>
+#include <unordered_map>
 using namespace std;
 
-ifstream fin("Datasets/d.txt");
-ofstream fout("Outputs/d.out");
+#define endl '\n'
+#define mp make_pair
+#define pb push_back
+#define input(s) freopen(s, "r", stdin)
+#define output(s) freopen(s, "w", stdout)
+#define forn(i, n) for (int i = 0; i < n; i++)
 
-//GLOBAL VARIABLES====================
-int Duration, IntersectionsCount, StreetCount, CarCount, BonusPointsPerCar;
-//====================================
-
-//STRUCTS=============================
-class Roads
-{
-public:
-    int StartPos, EndPos, CrossDuration;
-    char Name[31];
-    bool OneWay;
-};
+typedef long long int ll;
+typedef long double ld;
 
 class Car
 {
 public:
-    int TravelDistance, TravelDuration;
-    char StreetNames[10000][31];
+    vector<int> streetsId;
+
+    void print()
+    {
+        for (int i = 0; i < streetsId.size(); i++)
+        {
+            cout << streetsId[i] << " " << endl;
+        }
+    }
 };
-//====================================
 
-int main()
+class Street
 {
-    fin >> Duration >> IntersectionsCount >> StreetCount >> CarCount >> BonusPointsPerCar;
+public:
+    int id;
+    int start;
+    int end;
+    int time;
+    string name;
 
-    Car C1[CarCount];
-    Roads R1[StreetCount];
-
-    //GET STREET VALUES===============
-    for (int i = 0; i < StreetCount; i++)
+    Street(int id, int start, int end, int time, string name)
     {
-        fin >> R1[i].StartPos >> R1[i].EndPos;
-        fin >> R1[i].Name;
-        fin >> R1[i].CrossDuration;
+        this->id = id;
+        this->start = start;
+        this->end = end;
+        this->time = time;
+        this->name = name;
     }
-    //================================
 
-    //GET CAR VALUES==================
-    for (int i = 0; i < CarCount; i++)
+    void print()
     {
-        fin >> C1[i].TravelDistance;
-        for (int x = 0; x < C1[i].TravelDistance; x++)
+        cout << id << start << end << time << name << endl;
+    }
+};
+
+class Intersection
+{
+public:
+    unordered_map<int, int> streetToCount;
+};
+
+class Schedule
+{
+public:
+    int id;
+    vector<pair<string, int>> streetAndTime;
+};
+
+int main(int argc, char *argv[])
+{
+    input(argv[1]);
+    output(argv[2]);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int D, I, S, V, F;
+    unordered_map<string, int> streetNameToId;
+    vector<Street> streets;
+    vector<Car> cars;
+
+    cin >> D >> I >> S >> V >> F;
+
+    for (int i = 0; i < S; i++)
+    {
+        int B, E, timeTaken;
+        string name;
+        cin >> B >> E >> name >> timeTaken;
+
+        Street street(i, B, E, timeTaken, name);
+
+        streets.push_back(street);
+
+        streetNameToId[street.name] = street.id;
+    }
+
+    for (int i = 0; i < V; i++)
+    {
+        int P;
+        cin >> P;
+
+        Car car;
+
+        for (int i = 0; i < P; i++)
         {
-            fin >> C1[i].StreetNames[x];
+            string name;
+            cin >> name;
+
+            int streetId = streetNameToId[name];
+
+            car.streetsId.push_back(streetId);
+        }
+
+        cars.push_back(car);
+    }
+
+    vector<Intersection> intersections(I);
+    for (const Car &car : cars)
+    {
+        for (const int streetId : car.streetsId)
+        {
+            intersections[streets[streetId].end].streetToCount[streetId]++;
         }
     }
-    //================================
 
-    //TRAVEL DISTANCE
-    for (int i = 0; i < CarCount; i++)
+    vector<Schedule> result;
+    for (int i = 0; i < intersections.size(); ++i)
     {
-        for (int j = 0; j < StreetCount; j++)
+        if (intersections[i].streetToCount.size() == 0)
+            continue;
+
+        Schedule s;
+        s.id = i;
+
+        int totalNumberOfCars = 0;
+        const int secondsInCycle = intersections[i].streetToCount.size();
+        for (const auto &streetToCount : intersections[i].streetToCount)
         {
-            if (strcmp(C1[i].StreetNames[j], R1[j].Name))
-            {
-                C1[i].TravelDuration = C1[i].TravelDuration + C1[i].TravelDistance;
-            }
+            totalNumberOfCars += streetToCount.second;
+        }
+        for (const auto &streetToCount : intersections[i].streetToCount)
+        {
+            s.streetAndTime.push_back({streets[streetToCount.first].name, secondsInCycle * streetToCount.second / totalNumberOfCars + 1});
+        }
+        result.push_back(s);
+    }
+
+    cout << result.size() << endl;
+
+    for (const auto &schedule : result)
+    {
+        cout << schedule.id << endl;
+        cout << schedule.streetAndTime.size() << endl;
+
+        for (const auto &streetAndTime : schedule.streetAndTime)
+        {
+
+            cout << streetAndTime.first << " " << streetAndTime.second << endl;
         }
     }
-
-    //ONEWAY BOOL
-    int OneWayPOS[StreetCount], index = 0;
-    for (int ye = 0; ye < StreetCount; ye++)
-    {
-        for (int me = 0; me < StreetCount; me++)
-        {
-            if (R1[ye].EndPos == R1[me].EndPos)
-            {
-                R1[ye].OneWay = false;
-            }
-            else
-            {
-                R1[ye].OneWay = true;
-                OneWayPOS[index] = ye;
-                index++;
-            }
-        }
-    }
-
-    for (int i = 0; i < IntersectionsCount; i++)
-    {
-        int c = OneWayPOS[i];
-        fout << IntersectionsCount << endl;
-        fout << c << endl;
-        fout << 1 << endl;
-        fout << R1[c].Name << 1 << endl;
-    }
-
+    return 0;
 }
